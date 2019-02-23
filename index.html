@@ -194,23 +194,10 @@ var _hmt = _hmt || [];
 <p>vmnet0  桥接模式</p>
 <p>vmnet1  host only（这个还不太懂 没用过）</p>
 <p>vmnet8  NAT模式</p>
-<p>安装方式（默认/最小/全部/自定义）</p>
-<h3 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a><strong>磁盘分区</strong></h3><p>文件类型：</p>
-<p><strong>ext4/xfs</strong><br>注：swap不会用到目录树挂载 所以不需要挂载点</p>
-<p><strong>lvm</strong>：弹性改变文件大小而不改变内容</p>
-<p><strong>software RAID</strong>：软件仿真出磁盘阵列功能</p>
-<p><strong>vfat</strong>：同时被linux和windows识别的文件</p>
-<p><strong>分区过程</strong>（/ /boot swap /hoom ）：</p>
-<p>1.先创建 / 目录：对应dev/sda1(和hda区别？)<br>2.再创建 /boot 目录：会自动移动到磁盘最前面，磁盘分区变为/dev/hda1,起始柱面为1<br>3.创建swap目录：物理内存1.5-2倍之间<br>4.创建/hoom目录：会自动将/dev/sda4变成扩展空间，把所有容量都个/dev/sda4,并将swap分配到/dev/sda5</p>
-<p>其它的网络配置和其它配置就不写了，还是抓紧时间进入命令操作的联系吧</p>
-<h2 id="顺便记下几个linux操作"><a href="#顺便记下几个linux操作" class="headerlink" title="顺便记下几个linux操作"></a>顺便记下几个linux操作</h2><p>1.vi命令</p>
-<p>esc + ：+ w + q   保存并退出<br>esc + ：+ q + !   不保存强退</p>
-<p>2.插入（insert）命令</p>
-<p>i 和 l</p>
-<p>附加插入命令</p>
-<p>a和A</p>
-<p>su root/exit      进入/退出 root用户</p>
-
+<p>安装方式（默认/最小/全部/自定义）<br>
+        
+          <a class="article-more-a" href="/2019/02/23/CentOS7/#more">more >></a>
+        
       
 
       
@@ -245,97 +232,15 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="转载Markdown常用语法"><a href="#转载Markdown常用语法" class="headerlink" title="转载Markdown常用语法"></a>转载Markdown常用语法</h1><p>标签（空格分隔）： </p>
-<hr>
+        <h1 id="转载Markdown常用语法"><a href="#转载Markdown常用语法" class="headerlink" title="转载Markdown常用语法"></a>转载Markdown常用语法</h1><hr>
 <p>发现前面写的一些文章排版好丑，多学学这个变得好看清晰点。</p>
 <ol>
 <li>标题</li>
 </ol>
-<p>第一种是使用 # 表示标题，其中 # 号必须在行首，<br>第二种是使用 === 或者 — 表示。<br><img src="https://img-blog.csdn.net/20180617104727399?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>分割线</li>
-</ol>
-<p>使用三个或以上的 - 或者 * 表示，且这一行只有符号，注意不要被识别为二级标题即可，例如中间或者前面可以加空格。</p>
-<ol>
-<li>斜体和粗体</li>
-</ol>
-<p>使用 <em> 和 *</em> 分别表示斜体和粗体，删除线使用两个 ~ 表示<br><img src="https://img-blog.csdn.net/20180617104742331?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>超链接和图片</li>
-</ol>
-<p>链接和图片的写法类似，图片仅在超链接前多了一个 ! ，一般是 [文字描述] (链接)<br><img src="https://img-blog.csdn.net/20180617104812563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>无序列表</li>
-</ol>
-<p>使用 -、+ 和 * 表示无序列表，前后留一行空白，可嵌套，例如</p>
-<ol>
-<li>有序列表</li>
-</ol>
-<p>使用 1. （点号后面有个空格）表示有序列表，可嵌套。</p>
-<ol>
-<li>文字引用</li>
-</ol>
-<p>使用 &gt; 表示，可以有多个 &gt;，表示层级更深，例如</p>
-<p><img src="https://img-blog.csdn.net/20180617105056177?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>行内代码块</li>
-</ol>
-<p>其实上面已经用过很多次了，即使用 ` 表示，例如</p>
-<p>扩展：很多字符是需要转义，使用反斜杠 \ 进行转义</p>
-<ol>
-<li>代码块</li>
-</ol>
-<p>使用四个空格缩进表示代码块，一些 IDE 支持行数提示和着色，一般使用三个 ` 表示，例如</p>
-<p><img src="https://img-blog.csdn.net/20180617105120413?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>表格</li>
-</ol>
-<p>直接看例子吧，第二行的 —: 表示了对齐方式，默认左对齐，还有 右对齐 和 居中</p>
-<table>
-<thead>
-<tr>
-<th>商品</th>
-<th style="text-align:right">数量</th>
-<th style="text-align:center">单价</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>苹果</td>
-<td style="text-align:right">10</td>
-<td style="text-align:center">\$1</td>
-</tr>
-<tr>
-<td>电脑</td>
-<td style="text-align:right">1</td>
-<td style="text-align:center">\$1000</td>
-</tr>
-</tbody>
-</table>
-<p><img src="https://img-blog.csdn.net/20180617105147160?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<ol>
-<li>流程图</li>
-</ol>
-<p>主要的语法为 name=&gt;type: describe，其中 type 主要有以下几种：<br>1.开始和结束：start end<br>2.输入输出：inputoutput<br>3.操作：operation<br>4.条件：condition<br>5.子程序：subroutine</p>
-<p><img src="https://img-blog.csdn.net/20180617105213264?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"></p>
-<p>更多语法参考：流程图语法参考</p>
-<ol>
-<li>数学公式</li>
-</ol>
-<p>使用 $ 表示，其中一个 $ 表示在行内，两个 $ 表示独占一行。</p>
-<p>eg : $\sum_{i=1}^n a_i=0$</p>
-<p>支持 LaTeX 编辑显示支持，访问 MathJax 参考更多使用方法。</p>
-<p>推荐一个常用的数学公式在线编译网站：<a href="https://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="external">https://www.codecogs.com/latex/eqneditor.php</a></p>
-<p><img src="https://img-blog.csdn.net/20180617105447754?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FmZWlfXw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="此处输入图片的描述"><br>13.支持 HTML 标签</p>
-<p>例如想要段落的缩进，可以如下：</p>
-<p>&nbsp;&nbsp;不断行的空白格&nbsp;或&#160;<br>&ensp;&ensp;半方大的空白&ensp;或&#8194;<br>&emsp;&emsp;全方大的空白&emsp;或&#8195;</p>
-<p>点我跳转的功能这里演示不了，写法如下：</p>
-<pre><code>&lt;h6 id=&apos;anchor&apos;&gt;我是一个锚点&lt;/h6&gt;
-
-[点我跳转](#anchor)
-</code></pre><hr>
-<p>作者：阿飞<strong><br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/afei" target="_blank" rel="external">https://blog.csdn.net/afei</a></strong>/article/details/80717153<br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
-
+<p>第一种是使用 # 表示标题，其中 # 号必须在行首，<br>第二种是使用 === 或者 — 表示。<br>
+        
+          <a class="article-more-a" href="/2019/02/23/转载Markdown常用语法/#more">more >></a>
+        
       
 
       
@@ -373,22 +278,10 @@ var _hmt = _hmt || [];
         <h1 id="第一章笔记"><a href="#第一章笔记" class="headerlink" title="第一章笔记"></a>第一章笔记</h1><p>标签（空格分隔）： c primer plus 笔记</p>
 <hr>
 <h2 id="1-几个标准"><a href="#1-几个标准" class="headerlink" title="1.几个标准"></a>1.几个标准</h2><p>&nbsp;&nbsp;ANSI/ISO C标准<br>&nbsp;&nbsp;c99标准<br>&nbsp;&nbsp;c11标准</p>
-<h2 id="2-几个比较重要的流程图"><a href="#2-几个比较重要的流程图" class="headerlink" title="2.几个比较重要的流程图"></a>2.几个比较重要的流程图</h2><p><img src="http://m.qpic.cn/psb?/V140PzTD3ByrKn/Zo4FQhyJVQoA0JpS636PnnI*EA2ar7tRZO8h3beDtrU!/b/dLwAAAAAAAAA&amp;bo=0gQfAwAAAAADB.g!&amp;rf=viewer_4" alt="开发的七个步骤"></p>
-<p><img src="http://a4.qpic.cn/psb?/V140PzTD3ByrKn/HKmFwcZNW8zeTGtFEy2chhoUZKxcWSkzSy3UwovQALU!/b/dL8AAAAAAAAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;bo=TQXfAgAAAAADN4c!&amp;tl=1&amp;vuin=1565181647&amp;tm=1550757600&amp;sce=60-2-2&amp;rf=viewer_4" alt="源代码到可执行代码的过程"></p>
-<p>  初学者别忽视第一二步，先规划，用笔纸记录程序目标和设计框架。</p>
-<h2 id="2-编译器和链接器"><a href="#2-编译器和链接器" class="headerlink" title="2.编译器和链接器"></a>2.编译器和链接器</h2><h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>&nbsp;&nbsp;负责把c代码翻译成特点的机器语言</p>
-<p>&nbsp;&nbsp;将源码与c库代码合并成最终代码</p>
-<p>&nbsp;&nbsp;检查c程序，报错</p>
-<h3 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h3><p>&nbsp;&nbsp;源码和c库的链接由链接器程序完成</p>
-<p>&nbsp;&nbsp;大多数系统中编译器运行连接器</p>
-<h2 id="3-几个具体系统"><a href="#3-几个具体系统" class="headerlink" title="3.几个具体系统"></a>3.几个具体系统</h2><h3 id="UNIX系统"><a href="#UNIX系统" class="headerlink" title="*UNIX系统"></a>*UNIX系统</h3><p>&nbsp;&nbsp;注：UNIX区分大小写。 test.C 为无效文件 应为test.C<br>&nbsp;&nbsp;原始文件有多个源代码文件，保留目标代码文件（.obj）</p>
-<p>&nbsp;&nbsp;编译：GNU（又名GCC）编译器和LLVM项目</p>
-<h3 id="LINUX系统（可访问windows文档）"><a href="#LINUX系统（可访问windows文档）" class="headerlink" title="*LINUX系统（可访问windows文档）"></a>*LINUX系统（可访问windows文档）</h3><p>&nbsp;&nbsp;GCC基本语法：gcc [options] [filenames]    //参数 文件名</p>
-<p>&nbsp;&nbsp;编译：使用GNU提供的GCC公共域c编译器</p>
-<h3 id="pc的命令行编译器"><a href="#pc的命令行编译器" class="headerlink" title="*pc的命令行编译器"></a>*pc的命令行编译器</h3><p>&nbsp;&nbsp;&nbsp;   Cygwin和MinGW</p>
-<p>&nbsp;&nbsp;“字处理文件（包含其它信息：字体，格式）”和“文本文件”（源代码文件）</p>
-<h3 id="Windows（不可访问linux文档）"><a href="#Windows（不可访问linux文档）" class="headerlink" title="*Windows（不可访问linux文档）"></a>*Windows（不可访问linux文档）</h3><p>&nbsp;&nbsp;IDE<br>&nbsp;&nbsp;TIP: 程序执行完，执行窗口立即消失的解决方法<br>在 return（）这行代码之前加getchar（）<br>需要击键等待时，用两个getchar（）</p>
-
+<h2 id="2-几个比较重要的流程图"><a href="#2-几个比较重要的流程图" class="headerlink" title="2.几个比较重要的流程图"></a>2.几个比较重要的流程图</h2>
+        
+          <a class="article-more-a" href="/2019/02/21/c第一章笔记 /#more">more >></a>
+        
       
 
       
