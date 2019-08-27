@@ -19,12 +19,12 @@ var _hmt = _hmt || [];
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="feihu-jun.github.io">
-  <title>飞狐君的世界</title>
+  <title>Archives: 2019/8 | 飞狐君的世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="hi,little boy or girl.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="飞狐君的世界">
-<meta property="og:url" content="feihu-jun.github.io/index.html">
+<meta property="og:url" content="feihu-jun.github.io/archives/2019/08/index.html">
 <meta property="og:site_name" content="飞狐君的世界">
 <meta property="og:description" content="hi,little boy or girl.">
 <meta name="twitter:card" content="summary">
@@ -182,360 +182,41 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-嵌入式系统平台的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="嵌入式系统平台的实现"><a href="#嵌入式系统平台的实现" class="headerlink" title="嵌入式系统平台的实现"></a>嵌入式系统平台的实现</h1><p>标签（空格分隔）： 未分类</p>
-<hr>
-<p>##嵌入式硬件系统：jz2440 开发板（ S3C2440 微处理器）<br>[ ARM920T 内核，主频可达400MHz,内部总线结构为32/16-bit，<br>外围控制模块接口丰富，比如摄像头接口，usb接口，LCD 接口等]<br>摄像头采集模块，采集到的图像经过usb 与微处理器进行数据交互</p>
-<p>##嵌入式操作系统（Linux）：Linux</p>
-<p>###1.引导加载程序（BootLoader）：</p>
-<p>本系统基于ARM920T内核体系<br>uboot：支持烧写 yaffs2、JFFS2 根文件系统<br>地址 0x00000000 </p>
-<p>###2.Linux 内核：<br>内核是操作系统的指挥官</p>
-<p>####2.1主要目录：<br>include       包含了编译时所需要的大部分头文件<br>kernel         包含了大部分 Linux 系统的内核函数<br>mm            包含与内存管理相关的代码<br>init             包含内核初始化的代码<br>fs               文件系统相关的代码<br>drivers        包含硬件设备驱动程序<br>net             网络协议的实现代码</p>
-<p>####2.2内核的移植：<br>sudo gedit Makefile<br>make menuconfig<br>make uImage命令生成 uImage 文件，DNW烧写进开发板中</p>
-<p>###3.根文件系统：<br>数据管理的系统</p>
-<p>####3.1 作用；类型<br>程序初始化；大量指令集；库文件<br>JFFS2：奔溃数据不影响<br>YAFFS2 ：减少开销，删减版<br>Cramfs：只读性</p>
-<p>####3.2 主要目录<br>/bin 可以看到一些可执行的文件，也就是可用的一些命令:如 cat、chgrp、<br>chmod、cp、ls 等<br>/dev 存放设备接口文件<br>/etc 存放系统环境变量配置文件<br>/home 存放普通用户的相关文件<br>/lib 存放系统的库文件<br>/sbin 存放系统命令，需要管理员权限才能使用的命令，如 shutdown、fdisk、init 等<br>/tmp 存放临时文件<br>/root 系统管理员目录<br>/mnt 用于挂载的目录，通常是空的，当挂载到虚拟机上时会出现文件<br>/proc 虚拟的文件系统<br>/usr 存放共享目录</p>
-<p>####3.3 根文件移植<br>busybox-1.7.0<br>手动创建：/etc ，/dev等</p>
-<p>###4.设备驱动程序：（usb摄像头）<br>驱动程序来操作这些硬件</p>
-<p>####4.1 作用<br>初始化硬件设备<br>传递内核数据到硬件设备，并从硬件设备读取数据<br>从应用程序发送数据给设备文件，并返回应用程序请求的数据<br>检测并处理硬件设备出现的错误</p>
-<p>####4.2 方式<br>编译进内核，<br>采用 insmod 方式加载</p>
-<p>####4.3驱动编写<br>Nand Flash驱动模块</p>
-<p>#####第一步： 修改arch/arm/plat-s3c24xx/common-smdk.c文件</p>
-<p>static struct mtd_partition smdk_default_nand_part[ ] = {<br>[0] = {<br>.name = “Uboot”,<br>.size = 0x00040000,<br>.offset = 0x00000000,<br>},<br>[1] = {<br>.name = “Kernel”,<br>.offset = 0x00200000,<br>.size = 0x00300000,<br>},<br>[2] = {<br>.name = “filesystem”,<br>.offset = 0x00500000,<br>.size = MTDPART_SIZ_FULL,<br>}<br>};</p>
-<p>#####第二步：修改 NAND 控制器参数，打开文件 arch/arm/plat-s3c24xx/common-smdk.c</p>
-<p>static struct s3c2410_platform_nand smdk_nand_info = {<br>.tacls = 0,<br>.twrph0 = 21,<br>.twrph1 = 5,<br>.nr_sets = ARRAY_SIZE(smdk_nand_sets),<br>.sets = smdk_nand_sets,<br>};</p>
-<p>#####第三步：“make menuconfig”命令配置<br>Device Drivers —&gt;<br>&lt;<em>&gt;Memory Technology Device（MTD）support —&gt;<br>&lt;</em>&gt; NAND Device Support —&gt;<br>&lt;<em>&gt; NAND Flash support for Samsung S3C SoCs—&gt;<br>&lt;</em>&gt; Samsung S3C NAND Hardware ECC</p>
-<p>####USB 摄像头驱动模块<br>第一步：<br>Device Drivers —&gt;<br>[<em>] USB support —&gt;<br>&lt;</em>&gt;Support for Host-side USB<br>[<em>] USB device filesystem (DEPRECATED)<br>[</em>] USB device class-devices (DEPRECATED)<br>&lt;<em>&gt; OHCI HCD support<br>&lt;</em>&gt; USB Mass Storage support</p>
-<p> Device Drivers 里找到 Multimedia devices —&gt;<br>&lt;<em>&gt;Video For Linux<br>[</em>] Enable Video For Linux API 1 (DEPRECATED) (NEW)<br>— Enable Video For Linux API 1 compatible Layer<br>[<em>] Video capture adapters (NEW) —&gt;[</em>] Radio Adapters (NEW) —-&gt;<br>&lt; &gt; DVB for Linux<br>[*] DAB adapters</p>
-<p>应用程序</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/27/嵌入式系统平台的实现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-CentOS7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CentOS7"><a href="#CentOS7" class="headerlink" title="CentOS7"></a>CentOS7</h1><p>标签（空格分隔）： LINUX笔记</p>
-<hr>
-<p>买了鸟叔的linux私房菜了，看到百来页,前面一些笔记就记在书上了。</p>
-<h2 id="安装了CentOS7"><a href="#安装了CentOS7" class="headerlink" title="安装了CentOS7"></a>安装了CentOS7</h2>
-        
-          <a class="article-more-a" href="/2019/02/23/CentOS7/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
       
       
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/23/CentOS7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-转载Markdown常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="转载Markdown常用语法"><a href="#转载Markdown常用语法" class="headerlink" title="转载Markdown常用语法"></a>转载Markdown常用语法</h1><hr>
-<p>发现前面写的一些文章排版好丑，多学学这个变得好看清晰点。</p>
-<ol>
-<li>标题</li>
-</ol>
-<p>第一种是使用 # 表示标题，其中 # 号必须在行首，<br>第二种是使用 === 或者 — 表示。<br>
-        
-          <a class="article-more-a" href="/2019/02/23/转载Markdown常用语法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/23/转载Markdown常用语法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-c第一章笔记 " class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><p>标签（空格分隔）： c primer plus 笔记</p>
-<hr>
-<h2 id="1-几个标准"><a href="#1-几个标准" class="headerlink" title="1.几个标准"></a>1.几个标准</h2><p>&nbsp;&nbsp;ANSI/ISO C标准<br>&nbsp;&nbsp;c99标准<br>&nbsp;&nbsp;c11标准</p>
-<h2 id="2-几个比较重要的流程图"><a href="#2-几个比较重要的流程图" class="headerlink" title="2.几个比较重要的流程图"></a>2.几个比较重要的流程图</h2>
-        
-          <a class="article-more-a" href="/2019/02/21/c第一章笔记 /#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/c第一章笔记 /">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-时光小记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="时光小记二"><a href="#时光小记二" class="headerlink" title="时光小记二"></a>时光小记二</h1><p>标签（空格分隔）： 小记</p>
-<p>—2018年1月13日<br>&nbsp;&nbsp;&nbsp;&nbsp;辗转已经18年，日子还是这样不是期待的但是还凑合的过着，生活没有太大的改变，而与之欲来的欲望却越发的强烈。<br>&nbsp;&nbsp;&nbsp;&nbsp;太久没下笔，也是窘迫起来，只好装模作样的列三个新年目标。<br>1.健身达到理想状态 隔天五公里变速跑加两个专项训练（这个目前基本达到，体重稳定在63kg了）</p>
-<p>2.说服家里来年养只猫，不管是橘猫还是黑猫英短我都愿意，重要的是说服家里。</p>
-<p>3.努力学习</p>
-<p><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4034632742,805633214&amp;fm=27&amp;gp=0.jpg" alt="英短"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/13/时光小记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-我回来了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="我回来了"><a href="#我回来了" class="headerlink" title="我回来了"></a>我回来了</h1><p>标签（空格分隔）： 小记</p>
-<hr>
-<p>还是只有我最关心你了 哈哈</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/10/我回来了/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-起司猫" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="起司猫"><a href="#起司猫" class="headerlink" title="起司猫"></a>起司猫</h1><p>标签（空格分隔）： 测试1</p>
-<hr>
-<p><img src="http://omdfzemyv.bkt.clouddn.com/12562242457795.jpg" alt="起司猫"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/06/起司猫/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-hi-visitor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/hi-visitor/">hi,look here</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/hi-visitor/" class="archive-article-date">
-  	<time datetime="2017-03-01T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/08/27/嵌入式系统平台的实现/" class="archive-article-date">
+  	<time datetime="2019-08-27T14:41:17.398Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>欢迎来到飞狐君的世界，评论功能，相册功能，打赏功能等（划重点）陆续开发中。<br>3-4号，开发了评论功能和百度统计，以及打赏二维码。<br>3-5号，添加相册失败，网页崩盘两次- -，买了个域名4块，www.feihu-jun.top<br>3-6号，弄好了多说评论，美化了下，顺便做了个留言板和来访显示。找到图窗七牛云。</p>
-<p><br>弄了两个夜晚终于有点雏形了，撒花。<br> <img src="http://omdfzemyv.bkt.clouddn.com/12762596726019.jpg" alt="看，全是猫"></p>
+        </div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/hi-visitor/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
-
-
-
   
   
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -557,9 +238,9 @@ var _hmt = _hmt || [];
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
