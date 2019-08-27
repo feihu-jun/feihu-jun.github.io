@@ -195,24 +195,10 @@ var _hmt = _hmt || [];
 <p>本系统基于ARM920T内核体系<br>uboot：支持烧写 yaffs2、JFFS2 根文件系统<br>地址 0x00000000 </p>
 <p>###2.Linux 内核：<br>内核是操作系统的指挥官</p>
 <p>####2.1主要目录：<br>include       包含了编译时所需要的大部分头文件<br>kernel         包含了大部分 Linux 系统的内核函数<br>mm            包含与内存管理相关的代码<br>init             包含内核初始化的代码<br>fs               文件系统相关的代码<br>drivers        包含硬件设备驱动程序<br>net             网络协议的实现代码</p>
-<p>####2.2内核的移植：<br>sudo gedit Makefile<br>make menuconfig<br>make uImage命令生成 uImage 文件，DNW烧写进开发板中</p>
-<p>###3.根文件系统：<br>数据管理的系统</p>
-<p>####3.1 作用；类型<br>程序初始化；大量指令集；库文件<br>JFFS2：奔溃数据不影响<br>YAFFS2 ：减少开销，删减版<br>Cramfs：只读性</p>
-<p>####3.2 主要目录<br>/bin 可以看到一些可执行的文件，也就是可用的一些命令:如 cat、chgrp、<br>chmod、cp、ls 等<br>/dev 存放设备接口文件<br>/etc 存放系统环境变量配置文件<br>/home 存放普通用户的相关文件<br>/lib 存放系统的库文件<br>/sbin 存放系统命令，需要管理员权限才能使用的命令，如 shutdown、fdisk、init 等<br>/tmp 存放临时文件<br>/root 系统管理员目录<br>/mnt 用于挂载的目录，通常是空的，当挂载到虚拟机上时会出现文件<br>/proc 虚拟的文件系统<br>/usr 存放共享目录</p>
-<p>####3.3 根文件移植<br>busybox-1.7.0<br>手动创建：/etc ，/dev等</p>
-<p>###4.设备驱动程序：（usb摄像头）<br>驱动程序来操作这些硬件</p>
-<p>####4.1 作用<br>初始化硬件设备<br>传递内核数据到硬件设备，并从硬件设备读取数据<br>从应用程序发送数据给设备文件，并返回应用程序请求的数据<br>检测并处理硬件设备出现的错误</p>
-<p>####4.2 方式<br>编译进内核，<br>采用 insmod 方式加载</p>
-<p>####4.3驱动编写<br>Nand Flash驱动模块</p>
-<p>#####第一步： 修改arch/arm/plat-s3c24xx/common-smdk.c文件</p>
-<p>static struct mtd_partition smdk_default_nand_part[ ] = {<br>[0] = {<br>.name = “Uboot”,<br>.size = 0x00040000,<br>.offset = 0x00000000,<br>},<br>[1] = {<br>.name = “Kernel”,<br>.offset = 0x00200000,<br>.size = 0x00300000,<br>},<br>[2] = {<br>.name = “filesystem”,<br>.offset = 0x00500000,<br>.size = MTDPART_SIZ_FULL,<br>}<br>};</p>
-<p>#####第二步：修改 NAND 控制器参数，打开文件 arch/arm/plat-s3c24xx/common-smdk.c</p>
-<p>static struct s3c2410_platform_nand smdk_nand_info = {<br>.tacls = 0,<br>.twrph0 = 21,<br>.twrph1 = 5,<br>.nr_sets = ARRAY_SIZE(smdk_nand_sets),<br>.sets = smdk_nand_sets,<br>};</p>
-<p>#####第三步：“make menuconfig”命令配置<br>Device Drivers —&gt;<br>&lt;<em>&gt;Memory Technology Device（MTD）support —&gt;<br>&lt;</em>&gt; NAND Device Support —&gt;<br>&lt;<em>&gt; NAND Flash support for Samsung S3C SoCs—&gt;<br>&lt;</em>&gt; Samsung S3C NAND Hardware ECC</p>
-<p>####USB 摄像头驱动模块<br>第一步：<br>Device Drivers —&gt;<br>[<em>] USB support —&gt;<br>&lt;</em>&gt;Support for Host-side USB<br>[<em>] USB device filesystem (DEPRECATED)<br>[</em>] USB device class-devices (DEPRECATED)<br>&lt;<em>&gt; OHCI HCD support<br>&lt;</em>&gt; USB Mass Storage support</p>
-<p> Device Drivers 里找到 Multimedia devices —&gt;<br>&lt;<em>&gt;Video For Linux<br>[</em>] Enable Video For Linux API 1 (DEPRECATED) (NEW)<br>— Enable Video For Linux API 1 compatible Layer<br>[<em>] Video capture adapters (NEW) —&gt;[</em>] Radio Adapters (NEW) —-&gt;<br>&lt; &gt; DVB for Linux<br>[*] DAB adapters</p>
-<p>应用程序</p>
-
+<p>####2.2内核的移植：<br>sudo gedit Makefile<br>make menuconfig<br>make uImage命令生成 uImage 文件，DNW烧写进开发板中<br>
+        
+          <a class="article-more-a" href="/2019/08/27/嵌入式系统平台的实现/#more">more >></a>
+        
       
 
       
