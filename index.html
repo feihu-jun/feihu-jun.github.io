@@ -233,11 +233,7 @@ var _hmt = _hmt || [];
 <hr>
 <p>##嵌入式硬件系统：jz2440 开发板（ S3C2440 微处理器）<br>[ ARM920T 内核，主频可达400MHz,内部总线结构为32/16-bit，<br>外围控制模块接口丰富，比如摄像头接口，usb接口，LCD 接口等]<br>摄像头采集模块，采集到的图像经过usb 与微处理器进行数据交互</p>
 <p>##嵌入式操作系统（Linux）：Linux</p>
-<p>###1.引导加载程序（BootLoader）：</p>
-<p>本系统基于ARM920T内核体系<br>uboot：支持烧写 yaffs2、JFFS2 根文件系统<br>地址 0x00000000 </p>
-<p>###2.Linux 内核：<br>内核是操作系统的指挥官</p>
-<p>####2.1主要目录：<br>include       包含了编译时所需要的大部分头文件<br>kernel         包含了大部分 Linux 系统的内核函数<br>mm            包含与内存管理相关的代码<br>init             包含内核初始化的代码<br>fs               文件系统相关的代码<br>drivers        包含硬件设备驱动程序<br>net             网络协议的实现代码</p>
-<p>####2.2内核的移植：<br>sudo gedit Makefile<br>make menuconfig<br>make uImage命令生成 uImage 文件，DNW烧写进开发板中<br>
+<p>###1.引导加载程序（BootLoader）：<br>
         
           <a class="article-more-a" href="/2019/08/27/嵌入式系统平台的实现/#more">more >></a>
         
