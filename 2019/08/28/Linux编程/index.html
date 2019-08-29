@@ -33,7 +33,7 @@ Linux下C++开发
 
 Linux下C++开发
 ##1.第一个c/c++程序">
-<meta property="og:updated_time" content="2019-08-28T14:53:33.908Z">
+<meta property="og:updated_time" content="2019-08-29T08:54:01.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="飞狐君的世界">
 <meta name="twitter:description" content="Linux知识库标签（空格分隔）： linux
@@ -205,26 +205,42 @@ Linux下C++开发
 <p> g++ HelloWorld.cpp<br> ./a.out </p>
 <p>###1.3 第一个c程序 main.c</p>
 <p>#include <stdio.h><br>int main(){<br>    printf(“hello world!\n”);<br>    return 0;<br>}</stdio.h></p>
-<p>###1.4执行<br>gcc -E<br>main.c -o main.i</p>
-<p>gcc -S<br>main.i -o main.s</p>
-<p>gcc -c<br>main.s -o main.o</p>
-<p>gcc main.o -o main</p>
-<p>./main</p>
+<p>###1.4执行<br>gcc -E main.c -o main.i（预处理）</p>
+<p>gcc -S main.i -o main.s（编译）</p>
+<p>gcc -c main.s -o main.o（汇编）</p>
+<p>gcc main.o -o main     （链接）</p>
+<p>./main                 （执行）</p>
 <p>##2. gcc/g++/gdb/makefile/make</p>
 <p>###2.2 后缀为.c的，gcc把它当作是C程序，而g++当作是c++程序<br>          后缀为.cpp的，两者都会认为是c++程序</p>
-<p>###2. 编译阶段，g++会调用gcc，对于c++代码，两者是等价的<br>  因为gcc命令不能自动和C＋＋程序使用的库联接，所以通常用g++来完成链接<br>  为了统一起见，编译/链接统统用g++(错觉：好像cpp程序只能用g++）</p>
+<p>###2.3 gcc g++区别</p>
+<ol>
+<li><p>对于 <em>.c和</em>.cpp文件，gcc分别当做c和cpp文件编译（c和cpp的语法强度是不一样的）；</p>
+</li>
+<li><p>对于 <em>.c和</em>.cpp文件，g++则统一当做cpp文件编译；</p>
+</li>
+<li><p>使用g++编译文件时，g++会自动链接标准库STL，而gcc不会自动链接STL；</p>
+</li>
+<li><p>gcc在编译C文件时，可使用的预定义宏是比较少的；</p>
+</li>
+<li><p>gcc在编译cpp文件时/g++在编译c文件和cpp文件时（这时候gcc和g++调用的都是cpp文件的编译器），会加入一些额外的宏<br>编译阶段，g++会调用gcc，对于c++代码，两者是等价的</p>
+<p>因为gcc命令不能自动和C＋＋程序使用的库联接，所以通常用g++来完成链接<br>为了统一起见，编译/链接统统用g++(错觉：好像cpp程序只能用g++）</p>
+</li>
+</ol>
 <p>##3.gcc常用命令</p>
-<h3 id="3-1-gcc-命令语法："><a href="#3-1-gcc-命令语法：" class="headerlink" title="3.1 gcc 命令语法："></a>3.1 gcc 命令语法：</h3><p> gcc 【options】 filename-list<br>         -ansi                                                 以ANSI标准</p>
-<pre><code>  -c                                                     跳过连接步骤，编译成目标（.o)文件
+<h3 id="3-1-gcc-命令语法："><a href="#3-1-gcc-命令语法：" class="headerlink" title="3.1 gcc 命令语法："></a>3.1 gcc 命令语法：</h3><p> gcc 【options】 filename-list</p>
+<pre><code>-ansi                                                  以ANSI标准
 
- -g                                                     创建用于gdb的符号表和调试信息
+-c                                                     跳过连接步骤，编译成目标（.o)文件
 
-  -S                                                    跳过汇编和连接阶段，并保留编译产生的汇编代码（.a文件）
+-g                                                     创建用于gdb的符号表和调试信息（debug）
+
+-S                                                     跳过汇编和连接阶段，并保留编译产生的汇编代码（.a文件）
+
 -v                                                     产生尽可能多的输出信息
 
--w                                                   忽略警告信息
+-w                                                     忽略警告信息
 
-   -o                                                    将生成的可执行程序保存到指定文件中，而不是默认的a.out
+-o                                                     将生成的可执行程序保存到指定文件中，而不是默认的a.out
 </code></pre><p> 3.2 make [选项]    [目标]  [宏定义]</p>
 <pre><code>常用选项：
 
@@ -247,7 +263,17 @@ Linux下C++开发
 -c      g++ -c test.
 
 -O    g++ -O1 test.c -o test 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长。
-</code></pre>
+</code></pre><p>3.4 gdb</p>
+<p>gcc -c test.c -g(生成debug版)</p>
+<p>gcc test.c -o test</p>
+<p>常用指令：</p>
+<p> gdb 可执行文件             : 表示对某个文件进行调试<br> b 函数名/行数              :  在某个函数名或行数前设置断点<br> run/r                      : 表示开始运行，如果是正在调试的程序的话，表示再次进行调试<br> n/next                     : 表示执行下一行语句<br>list                        : 列出源码默认10行（当前位置的上下共10行）<br>list 行号                  : 列出行号上下共10行的源码<br>list 函数名                : 列出函数名上下共10行的源码<br>s/step                     : 表示单步执行，进入函数<br>p /x 变量名                : 按16进制输出变量的值<br>      /d                       : 按10进制<br>      /o                       : 按八进制<br>set var 变量名=值          : 设置变量的值<br>bt(backtrace)              : 查看各级函数调用及参数,简写bt<br>q/quit                     : 退出<br>finish                     : 连续运行到当前函数返回为止，然后停下来等待命令<br>continue/c                 : 跳转到下个断点，或者跳转到观察点<br>ptype 变量名               : 可以查看变量的类型，简写为pt<br>watch<br>    作用：一般用来观察某个变量/内存地址的状态(也可以是表达式），<br>          如可以监控该变量/内存值是否被程序读/写情况。<br>    有三种方法：<br>    1.watch expr（指定变量/内存地址/表达式）<br>    一旦expr的值有变化时，将停住程序。<br>    2.rwatch expr<br>    当expr被读时，停住程序。<br>    3.awatch expr<br>    当expr被读或被写时，停住程序。<br>    watch使用步骤：</p>
+<pre><code>1. 使用break在要观察的变量所在处设置断点；
+2. 使用run执行，直到断点；
+3. 使用watch设置观察点；
+4. 使用continue观察设置的观察点是否有变化。
+</code></pre><p>start                                      : 开始执行程序，停在main函数第一行语句前面等待命令<br>info watchpoints                           : 列出所有观察点<br>    info breakpoints                           : 查看当前设置的所有断点<br>d/delete [breakpoinsts num] [rang…]<br>    d/delete                                   : 删除所有断点<br>    d/delete num                               : 删除breakpoints为num的断点<br>    d/delete num1-num2                         : 删除breakpoints为num1-num2的断点<br>enable num                                 : 启用num号断点<br>disable num                                : 关闭num号断点<br>u/until                                    : 结束当前循环</p>
+
       
 
       
