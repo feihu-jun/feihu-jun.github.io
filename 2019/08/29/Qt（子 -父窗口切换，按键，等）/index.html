@@ -21,15 +21,31 @@ var _hmt = _hmt || [];
   <link rel="dns-prefetch" href="feihu-jun.github.io">
   <title>飞狐君的世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hi,little boy or girl.">
-<meta property="og:type" content="website">
+  <meta name="description" content="Qt（子 /父窗口切换，按键，等）标签（空格分隔）： QT学习
+
+(1) mainwidget.h (2) subwidget.h
+(3) main.cpp (4) mainwidget.h (5) subwidget
+##源代码：
+###（1）mianwidget.h">
+<meta property="og:type" content="article">
 <meta property="og:title" content="飞狐君的世界">
-<meta property="og:url" content="feihu-jun.github.io/index.html">
+<meta property="og:url" content="feihu-jun.github.io/2019/08/29/Qt（子 -父窗口切换，按键，等）/index.html">
 <meta property="og:site_name" content="飞狐君的世界">
-<meta property="og:description" content="hi,little boy or girl.">
+<meta property="og:description" content="Qt（子 /父窗口切换，按键，等）标签（空格分隔）： QT学习
+
+(1) mainwidget.h (2) subwidget.h
+(3) main.cpp (4) mainwidget.h (5) subwidget
+##源代码：
+###（1）mianwidget.h">
+<meta property="og:updated_time" content="2019-08-29T13:40:49.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="飞狐君的世界">
-<meta name="twitter:description" content="hi,little boy or girl.">
+<meta name="twitter:description" content="Qt（子 /父窗口切换，按键，等）标签（空格分隔）： QT学习
+
+(1) mainwidget.h (2) subwidget.h
+(3) main.cpp (4) mainwidget.h (5) subwidget
+##源代码：
+###（1）mianwidget.h">
   
     <link rel="alternative" href="/atom.xml" title="飞狐君的世界" type="application/atom+xml">
   
@@ -180,9 +196,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Qt（子 -父窗口切换，按键，等）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Qt（子 -父窗口切换，按键，等）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -192,140 +206,103 @@ var _hmt = _hmt || [];
 <p>(1) mainwidget.h (2) subwidget.h</p>
 <p>(3) main.cpp (4) mainwidget.h (5) subwidget</p>
 <p>##源代码：</p>
-<p>###（1）mianwidget.h<br>
-        
-          <a class="article-more-a" href="/2019/08/29/Qt（子 -父窗口切换，按键，等）/#more">more >></a>
-        
-      
+<p>###（1）mianwidget.h<br><a id="more"></a> </p>
+<p>#ifndef MAINWIDGET_H<br>#define MAINWIDGET_H</p>
+<p>#include <qwidget><br>#include <qpushbutton><br>#include “subwidget.h” //子窗口头文件</qpushbutton></qwidget></p>
+<p>class MainWidget : public QWidget<br>{<br>    Q_OBJECT</p>
+<p>public:<br>    MainWidget(QWidget *parent = 0);<br>    ~MainWidget();</p>
+<pre><code>void mySlot(); //自定义的槽函数
+void changeWin();
+void dealSub();
+</code></pre><p>private:<br>    QPushButton b1;<br>    QPushButton *b2;<br>    QPushButton b3;</p>
+<pre><code>SubWidget w;
+</code></pre><p>};</p>
+<p>#endif // MAINWIDGET_H</p>
+<p>###(2) subwidget.h</p>
+<p>#ifndef SUBWIDGET_H<br>#define SUBWIDGET_H</p>
+<p>#include <qwidget><br>#include <qpushbutton></qpushbutton></qwidget></p>
+<p>class SubWidget : public QWidget<br>{<br>    Q_OBJECT<br>public:<br>    explicit SubWidget(QWidget *parent = 0);</p>
+<pre><code>void sendSlot();
+</code></pre><p>signals:<br>    /*</p>
+<pre><code>* 必须有signals关键字声明
+* 信号没有返回值，但可以有参数
+* 信号就是函数声明，秩序声明，无需定义
+* 使用 emit mySingnal（）；
+</code></pre><p>*/<br>    void mySingal();<br>public slots:</p>
+<p>private:<br>    QPushButton b;</p>
+<p>};</p>
+<p>#endif // SUBWIDGET_H</p>
+<p>###(3) main.cpp</p>
+<p>#include “mainwidget.h”<br>#include <qapplication></qapplication></p>
+<p>int main(int argc, char *argv[])<br>{<br>    QApplication a(argc, argv);<br>    MainWidget w;//执行MainWidget的构造函数<br>    w.show();</p>
+<pre><code>return a.exec();
+</code></pre><p>}</p>
+<p>###(4) mainwidget.cpp</p>
+<p>#include “mainwidget.h”<br>#include <qpushbutton></qpushbutton></p>
+<p>MainWidget::MainWidget(QWidget *parent)<br>    : QWidget(parent)<br>{</p>
+<pre><code>b1.setParent(this);
+b1.setText(&quot;close&quot;);
+b1.move(100, 100);
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+b2 = new QPushButton(this);
+b2-&gt;setText(&quot;-=-&quot;);
+connect(&amp;b1, &amp;QPushButton::pressed, this, &amp;MainWidget::close);
+/* &amp;b1:信号发出者，指针类型
+ * &amp;QPushButton::pressed 处理的信号， &amp;发送者的类名：：信号名字
+ * this：信号接收者
+ * &amp;MainWidget：：close： 槽函数，信号处理函数 &amp;接收类名：：槽函数名字
+</code></pre><p><em>/<br>    /</em> 自定义槽，普通函数用法</p>
+<pre><code>* qt5：任意成员函数(常用)，普通全局函数，静态函数
+* 槽函数需要和信号一致（参数，返回值）
+* 由于信号都是没有返回值，所以，槽函数一定没有返回值
+* 自定义的槽 要自己定义
+</code></pre><p>*/</p>
+<p>connect (b2, &amp;QPushButton::released, this, &amp;MainWidget::mySlot);<br>// 注意 &amp;b2本身就是个指针类型 所以选择b2</p>
+<p>connect (b2, &amp;QPushButton::released, &amp;b1, &amp;QPushButton::hide);</p>
+<p> setWindowTitle(“老大”);<br>//this-&gt;setWindowTitle(“老大”)； 等价<br>  b3.setParent(this);<br>  b3.setText(“切换到子窗口”);<br>  b3.move(50,50);</p>
+<p>  //显示子窗口<br> // w.show();<br>connect(&amp;b3, &amp;QPushButton::released, this, &amp;MainWidget::changeWin);</p>
+<p>//处理子窗口信号<br>connect(&amp;w, &amp;SubWidget::mySingal, this, &amp;MainWidget::dealSub);</p>
+<p>/*</p>
+<ul>
+<li>信号：短信</li>
+<li>槽函数：接收短信的手机<br>*/<br>}</li>
+</ul>
+<p>void MainWidget::mySlot()<br>{<br>    b2-&gt;setText(“我变了”);<br>}</p>
+<p>void MainWidget::changeWin()<br>{<br>    //子窗口显示<br>    w.show();<br>    //本窗口隐藏<br>    this-&gt;hide();<br>}<br>void MainWidget::dealSub()<br>{<br>    //子窗口隐藏<br>    w.hide();<br>    //本窗口显示<br>    this-&gt;show();<br>}</p>
+<p>MainWidget::~MainWidget()<br>{</p>
+<p>}</p>
+<p>###5.subwidget.cpp<br>#include “subwidget.h”</p>
+<p>SubWidget::SubWidget(QWidget *parent) : QWidget(parent)<br>{<br>this-&gt;setWindowTitle(“小弟”);<br>    b.setParent(this);<br>    b.setText(“切换至主窗”);<br>connect(&amp;b, &amp;QPushButton::clicked, this, &amp;SubWidget::sendSlot);<br>}</p>
+<p>void SubWidget::sendSlot()<br>{<br>    emit mySingal();<br>}</p>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/Qt（子 -父窗口切换，按键，等）/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-人脸识别（3）——识别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人脸识别（3）——-识别"><a href="#人脸识别（3）——-识别" class="headerlink" title="人脸识别（3）——(识别)"></a>人脸识别（3）——(识别)</h1><p>标签（空格分隔）： 人脸识别</p>
-<hr>
-<p>人脸识别</p>
-<p>1.打开摄像头</p>
-<p>2.加载人脸检测器，加载人脸模型<br>model = FisherFaceRecognizer::create(); model-&gt;read(“MyFaceFisherModel.xml”)</p>
-        
-          <a class="article-more-a" href="/2019/08/29/人脸识别（3）——识别/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/人脸识别（3）——识别/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-人脸识别（1）——拍照+预处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人脸识别（1）——拍照-预处理"><a href="#人脸识别（1）——拍照-预处理" class="headerlink" title="人脸识别（1）——拍照+预处理"></a>人脸识别（1）——拍照+预处理</h1><p>标签（空格分隔）： 人脸识别</p>
-<hr>
-<p>拍照+预处理（harr分类器使用）</p>
-<p>调用opencv训练好的分类器和自带的检测函数检测人脸人眼等的步骤：</p>
-<p>##1.加载分类器，(提前加入目录)（harr分类器）</p>
-<p>CascadeClassifier cascada;<br>cascada.load(“haarcascade_frontalface_alt2.xml”)<br>
-        
-          <a class="article-more-a" href="/2019/08/29/人脸识别（1）——拍照+预处理/#more">more >></a>
-        
       
 
       
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/人脸识别（1）——拍照+预处理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-人脸识别（2）——训练" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人脸识别（2）——训练"><a href="#人脸识别（2）——训练" class="headerlink" title="人脸识别（2）——训练"></a>人脸识别（2）——训练</h1><p>标签（空格分隔）： 人脸识别</p>
-<hr>
-<p>人脸模型的训练（需要读取人脸和人脸对应的标签）直接在数据库中读取显然是低效的，采用csv文件读取</p>
-<p>##1.提取csv</p>
-<p>##2.训练</p>
-<p>###csv文件的生成：<br>Python 脚本 生成at.txt</p>
-        
-          <a class="article-more-a" href="/2019/08/29/人脸识别（2）——训练/#more">more >></a>
-        
-      
-
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您是位慈善家，好人好报<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://omdfzemyv.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170306213405.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -334,18 +311,74 @@ var _hmt = _hmt || [];
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/人脸识别（2）——训练/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:feihu-jun.github.io/2019/08/29/Qt（子 -父窗口切换，按键，等）/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/29/人脸识别（3）——识别/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -353,261 +386,28 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-Linux编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Linux编程——c-c-gdb-make等"><a href="#Linux编程——c-c-gdb-make等" class="headerlink" title="Linux编程——c/c++/gdb/make等"></a>Linux编程——c/c++/gdb/make等</h1><p>标签（空格分隔）： linux</p>
-<hr>
-<p>Linux下C++开发</p>
-<p>##1.第一个c/c++程序<br>
-        
-          <a class="article-more-a" href="/2019/08/28/Linux编程/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/28/Linux编程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Qt（子 -父窗口切换，按键，等）" data-title="" data-url="feihu-jun.github.io/2019/08/29/Qt（子 -父窗口切换，按键，等）/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"feihu-jun"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
   
-    <article id="post-Video for Linux two (Video4Linux2)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="V4L2"><a href="#V4L2" class="headerlink" title="V4L2"></a>V4L2</h1><p>标签（空格分隔）：驱动</p>
-<hr>
-<p> Video for Linux two (Video4Linux2)</p>
-<p>V4L2在includenuxideo.h文件下定义了一些重要的数据结构<br>在采集图像的过程中，就是通过对这些数据的操作来获得最终的图像数据<br>本系统V4L2配置采用：在内核编译阶段配置（make menuconfig）</p>
-<p>##1.工作流程<br>
-        
-          <a class="article-more-a" href="/2019/08/28/Video for Linux two (Video4Linux2)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/28/Video for Linux two (Video4Linux2)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
 
 
-
-
-
-
-
-
-  
-    <article id="post-嵌入式系统平台的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人脸识别（嵌入式系统平台的实现）"><a href="#人脸识别（嵌入式系统平台的实现）" class="headerlink" title="人脸识别（嵌入式系统平台的实现）"></a>人脸识别（嵌入式系统平台的实现）</h1><p>标签（空格分隔）： 人脸识别</p>
-<hr>
-<p>##嵌入式硬件系统：jz2440 开发板（ S3C2440 微处理器）<br>[ ARM920T 内核，主频可达400MHz,内部总线结构为32/16-bit，<br>外围控制模块接口丰富，比如摄像头接口，usb接口，LCD 接口等]<br>摄像头采集模块，采集到的图像经过usb 与微处理器进行数据交互</p>
-<p>##嵌入式操作系统（Linux）：Linux</p>
-<p>###1.引导加载程序（BootLoader）：<br>
-        
-          <a class="article-more-a" href="/2019/08/27/嵌入式系统平台的实现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/27/嵌入式系统平台的实现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-CentOS7" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CentOS7"><a href="#CentOS7" class="headerlink" title="CentOS7"></a>CentOS7</h1><p>标签（空格分隔）： LINUX笔记</p>
-<hr>
-<p>买了鸟叔的linux私房菜了，看到百来页,前面一些笔记就记在书上了。</p>
-<h2 id="安装了CentOS7"><a href="#安装了CentOS7" class="headerlink" title="安装了CentOS7"></a>安装了CentOS7</h2>
-        
-          <a class="article-more-a" href="/2019/02/23/CentOS7/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/23/CentOS7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-转载Markdown常用语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="转载Markdown常用语法"><a href="#转载Markdown常用语法" class="headerlink" title="转载Markdown常用语法"></a>转载Markdown常用语法</h1><hr>
-<p>发现前面写的一些文章排版好丑，多学学这个变得好看清晰点。</p>
-<ol>
-<li>标题</li>
-</ol>
-<p>第一种是使用 # 表示标题，其中 # 号必须在行首，<br>第二种是使用 === 或者 — 表示。<br>
-        
-          <a class="article-more-a" href="/2019/02/23/转载Markdown常用语法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/23/转载Markdown常用语法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-c第一章笔记 " class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><p>标签（空格分隔）： c primer plus 笔记</p>
-<hr>
-<h2 id="1-几个标准"><a href="#1-几个标准" class="headerlink" title="1.几个标准"></a>1.几个标准</h2><p>&nbsp;&nbsp;ANSI/ISO C标准<br>&nbsp;&nbsp;c99标准<br>&nbsp;&nbsp;c11标准</p>
-<h2 id="2-几个比较重要的流程图"><a href="#2-几个比较重要的流程图" class="headerlink" title="2.几个比较重要的流程图"></a>2.几个比较重要的流程图</h2>
-        
-          <a class="article-more-a" href="/2019/02/21/c第一章笔记 /#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/c第一章笔记 /">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -629,8 +429,8 @@ var _hmt = _hmt || [];
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
