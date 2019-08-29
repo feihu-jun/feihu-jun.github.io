@@ -192,11 +192,9 @@ var _hmt = _hmt || [];
 <p>人脸识别</p>
 <p>1.打开摄像头</p>
 <p>2.加载人脸检测器，加载人脸模型<br>model = FisherFaceRecognizer::create(); model-&gt;read(“MyFaceFisherModel.xml”)</p>
-<p>3.人脸检测</p>
-<p>cascade.detectMultiScale(gray, faces,1.1, 4, 0<br>                                                 //|CV_HAAR_FIND_BIGGEST_OBJECT<br>| CV_HAAR_DO_ROUGH_SEARCH,<br>                                      //| CV_HAAR_SCALE_IMAGE,<br>Size(30, 30), Size(500, 500));</p>
-<p>4.把检测到的人脸与人脸模型里面的对比，找出这是谁的脸</p>
-<p>5.如果人脸是自己拍照的人脸，显示自己的名字</p>
-
+        
+          <a class="article-more-a" href="/2019/08/29/人脸识别（3）——识别/#more">more >></a>
+        
       
 
       
@@ -236,14 +234,10 @@ var _hmt = _hmt || [];
 <p>拍照+预处理（harr分类器使用）</p>
 <p>调用opencv训练好的分类器和自带的检测函数检测人脸人眼等的步骤：</p>
 <p>##1.加载分类器，(提前加入目录)（harr分类器）</p>
-<p>CascadeClassifier cascada;<br>cascada.load(“haarcascade_frontalface_alt2.xml”)</p>
-<p>##2.调用detectMultiScale()函数检测，调整函数的参数可以使检测结果更加精确</p>
-<p>cascada.detectMultiScale(frame_gray, faces, 1.1, 4, CV_HAAR_DO_ROUGH_SEARCH, Size(70, 70), Size(1000, 1000));</p>
-<blockquote>
-<p>frame_gray          表示的是要检测的输入图像<br>faces                   表示检测到的人脸目标序列,<br>1.1                      表示每次图像尺寸减小的比例<br>4                         表示每一个目标至少要被检测到3次才算是真的目标<br>flags–                  要么使用默认值，要么使用CV_HAAR_DO_CANNY_PRUNING<br>                             函数将会使用Canny边缘检测来排除边缘过多或过少的区域，<br>Size(100, 100)      为目标的最小尺寸 一般为30*30 是最小的<br>Size(500, 500)      为目标的最大尺寸 (opencv会自动去找这个最大尺寸)</p>
-</blockquote>
-<p>##3.把检测到的人脸等用矩形（或者圆形等其他图形）画出来</p>
-
+<p>CascadeClassifier cascada;<br>cascada.load(“haarcascade_frontalface_alt2.xml”)<br>
+        
+          <a class="article-more-a" href="/2019/08/29/人脸识别（1）——拍照+预处理/#more">more >></a>
+        
       
 
       
@@ -284,15 +278,9 @@ var _hmt = _hmt || [];
 <p>##1.提取csv</p>
 <p>##2.训练</p>
 <p>###csv文件的生成：<br>Python 脚本 生成at.txt</p>
-<p>###CSV文件去读图像和标签:<br>stringstream liness(line);     //字符串的分割<br>while (getline(file, line))      //从文本文件中读取一行字符</p>
-<p>OpenCV 自带了三个人脸识别算法：Eigenfaces（特征脸），Fisherfaces 和局部二进制模式直方图 (LBPH)</p>
-<p>###用到了opencv的Facerecognizer（特征脸）类</p>
-<p>//创建一个PCA人脸分类器，命名为model，调用其中的成员函数train()来完成分类器的训练</p>
-<p>Ptr<basicfacerecognizer> model = EigenFaceRecognizer::create();<br>model-&gt;train(images, labels);<br>model-&gt;save(“MyFacePCAModel.xml”);//存储路径//</basicfacerecognizer></p>
-<p>Ptr<basicfacerecognizer> model1 = FisherFaceRecognizer::create();<br>model1-&gt;train(images, labels);<br>model1-&gt;save(“MyFaceFisherModel.xml”);</basicfacerecognizer></p>
-<p>Ptr<lbphfacerecognizer> model2 = LBPHFaceRecognizer::create();<br>model2-&gt;train(images, labels);<br>model2-&gt;save(“MyFaceLBPHModel.xml”);</lbphfacerecognizer></p>
-<p>int predictedLabel = model-&gt;predict(testSample);//加载分类器<br>int predictedLabel1 = model1-&gt;predict(testSample);<br>int predictedLabel2 = model2-&gt;predict(testSample)</p>
-
+        
+          <a class="article-more-a" href="/2019/08/29/人脸识别（2）——训练/#more">more >></a>
+        
       
 
       
