@@ -182,6 +182,53 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-人脸识别（1）——拍照+预处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="人脸识别（1）——拍照-预处理"><a href="#人脸识别（1）——拍照-预处理" class="headerlink" title="人脸识别（1）——拍照+预处理"></a>人脸识别（1）——拍照+预处理</h1><p>标签（空格分隔）： 人脸识别</p>
+<hr>
+<p>拍照+预处理（harr分类器使用）</p>
+<p>调用opencv训练好的分类器和自带的检测函数检测人脸人眼等的步骤：</p>
+<p>##1.加载分类器，(提前加入目录)（harr分类器）</p>
+<p>CascadeClassifier cascada;<br>cascada.load(“haarcascade_frontalface_alt2.xml”)</p>
+<p>##2.调用detectMultiScale()函数检测，调整函数的参数可以使检测结果更加精确</p>
+<p>cascada.detectMultiScale(frame_gray, faces, 1.1, 4, CV_HAAR_DO_ROUGH_SEARCH, Size(70, 70), Size(1000, 1000));</p>
+<blockquote>
+<p>frame_gray          表示的是要检测的输入图像<br>faces                   表示检测到的人脸目标序列,<br>1.1                      表示每次图像尺寸减小的比例<br>4                         表示每一个目标至少要被检测到3次才算是真的目标<br>flags–                  要么使用默认值，要么使用CV_HAAR_DO_CANNY_PRUNING<br>                             函数将会使用Canny边缘检测来排除边缘过多或过少的区域，<br>Size(100, 100)      为目标的最小尺寸 一般为30*30 是最小的<br>Size(500, 500)      为目标的最大尺寸 (opencv会自动去找这个最大尺寸)</p>
+</blockquote>
+<p>##3.把检测到的人脸等用矩形（或者圆形等其他图形）画出来</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/29/人脸识别（1）——拍照+预处理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-人脸识别（2）——训练" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -542,44 +589,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/04/10/我回来了/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-起司猫" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="起司猫"><a href="#起司猫" class="headerlink" title="起司猫"></a>起司猫</h1><p>标签（空格分隔）： 测试1</p>
-<hr>
-<p><img src="http://omdfzemyv.bkt.clouddn.com/12562242457795.jpg" alt="起司猫"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/06/起司猫/">展开全文 >></a>
         </p>
       
 
