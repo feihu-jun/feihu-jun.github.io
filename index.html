@@ -182,6 +182,55 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-人脸识别（2）——训练" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="人脸识别（2）——训练"><a href="#人脸识别（2）——训练" class="headerlink" title="人脸识别（2）——训练"></a>人脸识别（2）——训练</h1><p>标签（空格分隔）： 人脸识别</p>
+<hr>
+<p>人脸模型的训练（需要读取人脸和人脸对应的标签）直接在数据库中读取显然是低效的，采用csv文件读取</p>
+<p>##1.提取csv</p>
+<p>##2.训练</p>
+<p>###csv文件的生成：<br>Python 脚本 生成at.txt</p>
+<p>###CSV文件去读图像和标签:<br>stringstream liness(line);     //字符串的分割<br>while (getline(file, line))      //从文本文件中读取一行字符</p>
+<p>OpenCV 自带了三个人脸识别算法：Eigenfaces（特征脸），Fisherfaces 和局部二进制模式直方图 (LBPH)</p>
+<p>###用到了opencv的Facerecognizer（特征脸）类</p>
+<p>//创建一个PCA人脸分类器，命名为model，调用其中的成员函数train()来完成分类器的训练</p>
+<p>Ptr<basicfacerecognizer> model = EigenFaceRecognizer::create();<br>model-&gt;train(images, labels);<br>model-&gt;save(“MyFacePCAModel.xml”);//存储路径//</basicfacerecognizer></p>
+<p>Ptr<basicfacerecognizer> model1 = FisherFaceRecognizer::create();<br>model1-&gt;train(images, labels);<br>model1-&gt;save(“MyFaceFisherModel.xml”);</basicfacerecognizer></p>
+<p>Ptr<lbphfacerecognizer> model2 = LBPHFaceRecognizer::create();<br>model2-&gt;train(images, labels);<br>model2-&gt;save(“MyFaceLBPHModel.xml”);</lbphfacerecognizer></p>
+<p>int predictedLabel = model-&gt;predict(testSample);//加载分类器<br>int predictedLabel1 = model1-&gt;predict(testSample);<br>int predictedLabel2 = model2-&gt;predict(testSample)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/29/人脸识别（2）——训练/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Linux编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -270,7 +319,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="人脸识别嵌入式系统平台的实现"><a href="#人脸识别嵌入式系统平台的实现" class="headerlink" title="人脸识别嵌入式系统平台的实现"></a>人脸识别嵌入式系统平台的实现</h1><p>标签（空格分隔）： 未分类</p>
+        <h1 id="人脸识别（嵌入式系统平台的实现）"><a href="#人脸识别（嵌入式系统平台的实现）" class="headerlink" title="人脸识别（嵌入式系统平台的实现）"></a>人脸识别（嵌入式系统平台的实现）</h1><p>标签（空格分隔）： 人脸识别</p>
 <hr>
 <p>##嵌入式硬件系统：jz2440 开发板（ S3C2440 微处理器）<br>[ ARM920T 内核，主频可达400MHz,内部总线结构为32/16-bit，<br>外围控制模块接口丰富，比如摄像头接口，usb接口，LCD 接口等]<br>摄像头采集模块，采集到的图像经过usb 与微处理器进行数据交互</p>
 <p>##嵌入式操作系统（Linux）：Linux</p>
@@ -548,58 +597,10 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-hi-visitor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/hi-visitor/">hi,look here</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/hi-visitor/" class="archive-article-date">
-  	<time datetime="2017-03-01T06:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>欢迎来到飞狐君的世界，评论功能，相册功能，打赏功能等（划重点）陆续开发中。<br>3-4号，开发了评论功能和百度统计，以及打赏二维码。<br>3-5号，添加相册失败，网页崩盘两次- -，买了个域名4块，www.feihu-jun.top<br>3-6号，弄好了多说评论，美化了下，顺便做了个留言板和来访显示。找到图窗七牛云。</p>
-<p><br>弄了两个夜晚终于有点雏形了，撒花。<br> <img src="http://omdfzemyv.bkt.clouddn.com/12762596726019.jpg" alt="看，全是猫"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/hi-visitor/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
