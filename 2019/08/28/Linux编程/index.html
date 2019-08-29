@@ -33,7 +33,7 @@ Linux下C++开发
 
 Linux下C++开发
 ##1.第一个c/c++程序">
-<meta property="og:updated_time" content="2019-08-29T08:56:45.786Z">
+<meta property="og:updated_time" content="2019-08-29T12:37:54.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="飞狐君的世界">
 <meta name="twitter:description" content="Linux编程——c/c++/gdb/make等标签（空格分隔）： linux
@@ -241,7 +241,7 @@ Linux下C++开发
 -w                                                     忽略警告信息
 
 -o                                                     将生成的可执行程序保存到指定文件中，而不是默认的a.out
-</code></pre><p> 3.2 make [选项]    [目标]  [宏定义]</p>
+</code></pre><p> 3.2 ###make [选项]    [目标]  [宏定义]</p>
 <pre><code>常用选项：
 
 -d                               显示调试信息
@@ -251,7 +251,7 @@ Linux下C++开发
 -n                              不执行makefile中的命令，只是显示输出这些命令
 
 -s                              执行但不显示任何信息
-</code></pre><p>3.3 g++</p>
+</code></pre><p>###3.3 g++</p>
 <pre><code> 无        g++ test.cpp //默认输出a.out将test.cpp 预处理 、汇编、编译 、 链接形成可执行文件。
 
 -o        //-o用于指定输出文件名
@@ -263,7 +263,7 @@ Linux下C++开发
 -c      g++ -c test.
 
 -O    g++ -O1 test.c -o test 使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长。
-</code></pre><p>3.4 gdb</p>
+</code></pre><p>###3.4 gdb</p>
 <p>gcc -c test.c -g(生成debug版)</p>
 <p>gcc test.c -o test</p>
 <p>常用指令：</p>
@@ -273,7 +273,14 @@ Linux下C++开发
 3. 使用watch设置观察点；
 4. 使用continue观察设置的观察点是否有变化。
 </code></pre><p>start                                      : 开始执行程序，停在main函数第一行语句前面等待命令<br>info watchpoints                           : 列出所有观察点<br>    info breakpoints                           : 查看当前设置的所有断点<br>d/delete [breakpoinsts num] [rang…]<br>    d/delete                                   : 删除所有断点<br>    d/delete num                               : 删除breakpoints为num的断点<br>    d/delete num1-num2                         : 删除breakpoints为num1-num2的断点<br>enable num                                 : 启用num号断点<br>disable num                                : 关闭num号断点<br>u/until                                    : 结束当前循环</p>
+<p>###3.5 makefile（好资料，跟我一起写Makefile）</p>
+<p>包含了五个东西：显式规则、隐晦规则、变量定义、文件指示和注释</p>
+<pre><code>1.如果这个工程没有编译过，那么我们的所有C文件都要编译并被链接。
 
+2.如果这个工程的某几个C文件被修改，那么我们只编译被修改的C文件，并链接目标程序。
+
+3.如果这个工程的头文件被改变了，那么我们需要编译引用了这几个头文件的C文件，并链接目标程序。
+</code></pre>
       
 
       
